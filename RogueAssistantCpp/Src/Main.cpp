@@ -8,96 +8,137 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string>
+#include <thread>
 #include <vector>
+
 #include <Windows.h>
 
 #pragma warning(disable: 4244)
 
-int RogueAssistant_Main(std::vector<std::string> const& args);
+BOOL APIENTRY DllMain(HMODULE hModule,
+    DWORD  ul_reason_for_call,
+    LPVOID lpReserved
+)
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+    case DLL_THREAD_ATTACH:
+        break;
+
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
+}
+
 bool RogueAssistant_MainLoop(Window* window, void* userData);
-
-#ifdef _DEBUG
-int main(int argc, const char** argv)
-{
-    std::vector<std::string> args;
-
-    for (int i = 0; i < argc; ++i)
-    {
-        args.push_back(std::string(argv[i]));
-    }
-
-    return RogueAssistant_Main(args);
-}
-
-#else
-
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
-{
-    std::vector<std::string> args;
-
-    for (int i = 0; i < __argc; ++i)
-    {
-        std::string str(__argv[i]);
-        args.push_back(str);
-    }
-
-    return RogueAssistant_Main(args);
-}
-
-#endif
+void RogueAssistant_ThreadFunc();
 
 static void DumpScriptsNextToExe()
 {
-    std::ofstream fileStream;
-    fileStream.open("RogueAssistant_mGBA.lua", std::ios::out);
-
-    LOG_INFO("Dumping RogueAssistant_mGBA.lua next to exe");
-
-    auto const& data = bin2cpp::getRogueAssistant_mGBALuaFile();
-    char const* ptr = data.getBuffer();
-
-    for (;*ptr != 0; ++ptr)
     {
-        // Ignore carriage return
-        if (*ptr != '\r')
-            fileStream << *ptr;
+        std::ofstream fileStream;
+        fileStream.open("RogueAssistant_mGBA.lua", std::ios::out);
+
+        LOG_INFO("Dumping RogueAssistant_mGBA.lua next to exe");
+
+        auto const& data = bin2cpp::getRogueAssistant_mGBALuaFile();
+        char const* ptr = data.getBuffer();
+
+        for (; *ptr != 0; ++ptr)
+        {
+            // Ignore carriage return
+            if (*ptr != '\r')
+                fileStream << *ptr;
+        }
+
+        fileStream.close();
     }
 
-    fileStream.close();
+    // TODO - Move assets around and only ship exe file
 }
 
-int RogueAssistant_Main(std::vector<std::string> const& args)
+static std::unique_ptr<std::thread> s_BackgroundThread;
+static bool s_CloseRequested = false;
+
+__declspec(dllexport) int RogueAssistant_Main(bool isStub, std::vector<std::string> const& args)
 {
-    DumpScriptsNextToExe();
-    UserData::Init();
+    if (isStub)
+    {
+        DumpScriptsNextToExe();
+        UserData::Init();
+
+        RogueAssistant_ThreadFunc();
+    }
+    else
+    {
+        DumpScriptsNextToExe();
+        UserData::Init();
+
+        s_BackgroundThread = std::make_unique<std::thread>(RogueAssistant_ThreadFunc);
+    }
+
+    return 0;
+}
+
+void RogueAssistant_Frame()
+{
+}
+
+void RogueAssistant_Shutdown()
+{
+    if (s_BackgroundThread)
+    {
+        s_CloseRequested = true;
+        s_BackgroundThread->join();
+        s_BackgroundThread = nullptr;
+    }
+}
+
+struct WindowData
+{
+    Window m_Window;
+    PrimaryUI m_UI;
+};
+
+void RogueAssistant_ThreadFunc()
+{
+    SetThreadDescription(GetCurrentThread(), L"RogueAssistant");
 
     WindowConfig config;
     config.title = "Rogue Assistant";
     config.imGuiEnabled = false;
 
-    Window window(config);
-    PrimaryUI ui;
+    WindowData data =
+    {
+        Window(config),
+        PrimaryUI()
+    };
 
-    if (window.Create())
+    if (data.m_Window.Create())
     {
         GameConnectionManager::Instance().OpenListener();
 
-        window.EnterMainLoop(RogueAssistant_MainLoop, &ui);
-        if (window.Destroy())
+        data.m_Window.EnterMainLoop(RogueAssistant_MainLoop, &data);
+
+        if (data.m_Window.Destroy())
         {
             GameConnectionManager::Instance().CloseListener();
-            return 0;
         }
     }
-
-    return 1;
 }
 
 bool RogueAssistant_MainLoop(Window* window, void* userData)
 {
-    PrimaryUI* ui = (PrimaryUI*)userData;
+    WindowData* data = (WindowData*)userData;
     UserData::Update();
     GameConnectionManager::Instance().UpdateConnections();
-    ui->Render(*window);
+    data->m_UI.Render(*window);
+
+    if (s_CloseRequested)
+        return false;
+
     return true;
 }

@@ -67,15 +67,6 @@
     <ClCompile Include="Src\DataStream.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="External\ENet\callbacks.c" />
-    <ClCompile Include="External\ENet\compress.c" />
-    <ClCompile Include="External\ENet\host.c" />
-    <ClCompile Include="External\ENet\list.c" />
-    <ClCompile Include="External\ENet\packet.c" />
-    <ClCompile Include="External\ENet\peer.c" />
-    <ClCompile Include="External\ENet\protocol.c" />
-    <ClCompile Include="External\ENet\unix.c" />
-    <ClCompile Include="External\ENet\win32.c" />
     <ClCompile Include="Src\LuaMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,16 +151,6 @@
     <ClInclude Include="Inc\DataStream.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="External\ENet\include\enet\callbacks.h" />
-    <ClInclude Include="External\ENet\include\enet\enet.h" />
-    <ClInclude Include="External\ENet\include\enet\list.h" />
-    <ClInclude Include="External\ENet\include\enet\protocol.h" />
-    <ClInclude Include="External\ENet\include\enet\time.h" />
-    <ClInclude Include="External\ENet\include\enet\types.h" />
-    <ClInclude Include="External\ENet\include\enet\unix.h" />
-    <ClInclude Include="External\ENet\include\enet\utility.h" />
-    <ClInclude Include="External\ENet\include\enet\win32.h" />
     <ClInclude Include="External\glew-2.1.0\include\GL\eglew.h" />
     <ClInclude Include="External\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="External\glew-2.1.0\include\GL\glxew.h" />
@@ -311,11 +292,5 @@
     <None Include="External\SFML\include\SFML\System\Utf.inl" />
     <None Include="External\SFML\include\SFML\System\Vector2.inl" />
     <None Include="External\SFML\include\SFML\System\Vector3.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="RogueAssistantCpp.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\WobbuffetIcon.ico" />
   </ItemGroup>
 </Project>

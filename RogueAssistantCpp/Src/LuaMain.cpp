@@ -1,23 +1,10 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
-//#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-//// Windows Header Files
-//#include <windows.h>
-//
-//BOOL APIENTRY DllMain(HMODULE hModule,
-//    DWORD  ul_reason_for_call,
-//    LPVOID lpReserved
-//)
-//{
-//    switch (ul_reason_for_call)
-//    {
-//    case DLL_PROCESS_ATTACH:
-//    case DLL_THREAD_ATTACH:
-//    case DLL_THREAD_DETACH:
-//    case DLL_PROCESS_DETACH:
-//        break;
-//    }
-//    return TRUE;
-//}
+
+#include <vector>
+#include <string>
+
+int RogueAssistant_Main(bool isStub, std::vector<std::string> const& args);
+void RogueAssistant_Frame();
+void RogueAssistant_Shutdown();
 
 #ifdef __cplusplus
 extern "C"
@@ -57,9 +44,29 @@ extern "C"
         return 1;
     }
 
-    __declspec(dllexport) int luaopen_mGBATools(lua_State* lua)
+    int rogue_attach(lua_State* lua)
     {
-        lua_register(lua, "dotest_test", doThing);
+        std::vector<std::string> args;
+        return RogueAssistant_Main(false, args);
+    }
+
+    int rogue_frame(lua_State* lua)
+    {
+        RogueAssistant_Frame();
+        return 1;
+    }
+
+    int rogue_shutdown(lua_State* lua)
+    {
+        RogueAssistant_Shutdown();
+        return 1;
+    }
+
+    __declspec(dllexport) int luaopen_RogueAssistant(lua_State* lua)
+    {
+        lua_register(lua, "rogue_attach", rogue_attach);
+        lua_register(lua, "rogue_frame", rogue_frame);
+        lua_register(lua, "rogue_shutdown", rogue_shutdown);
 
         return 1;
     }
