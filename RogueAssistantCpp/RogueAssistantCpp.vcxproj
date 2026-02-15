@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;$(ProjectDir)External\Lua\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -108,8 +108,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;freetype.lib;winmm.lib;gdi32.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win32\glfw3.lib;$(ProjectDir)External\ENet\enet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua55.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;sfml-window-s-d.lib;sfml-graphics-s-d.lib;freetype.lib;winmm.lib;gdi32.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win32\glfw3.lib;$(ProjectDir)External\ENet\enet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib;$(ProjectDir)External\Lua\Win32</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;$(ProjectDir)External\Lua\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -149,8 +149,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;sfml-system-s.lib;sfml-network-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;freetype.lib;winmm.lib;gdi32.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win32\glfw3.lib;$(ProjectDir)External\ENet\enet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua55.lib;sfml-system-s.lib;sfml-network-s.lib;sfml-window-s.lib;sfml-graphics-s.lib;freetype.lib;winmm.lib;gdi32.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win32\glfw3.lib;$(ProjectDir)External\ENet\enet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib;$(ProjectDir)External\Lua\Win32</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
@@ -178,7 +178,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;$(ProjectDir)External\Lua\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -186,8 +186,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win64\glfw3.lib;$(ProjectDir)External\ENet\enet64.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)External\ENet;%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua55.lib;sfml-system-s-d.lib;sfml-network-s-d.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win64\glfw3.lib;$(ProjectDir)External\ENet\enet64.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)External\ENet;$(ProjectDir)External\Lua\Win64;%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
@@ -217,7 +217,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Inc;$(ProjectDir)External\glfw-3.3.8\include;$(ProjectDir)External\imgui;$(ProjectDir)External\ENet\include;$(ProjectDir)External\SFML\include;$(ProjectDir)External\Lua\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -227,8 +227,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;sfml-system-s.lib;sfml-network-s.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win64\glfw3.lib;$(ProjectDir)External\ENet\enet64.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)External\ENet;%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;lua55.lib;sfml-system-s.lib;sfml-network-s.lib;$(ProjectDir)External\glfw-3.3.8\lib\Win64\glfw3.lib;$(ProjectDir)External\ENet\enet64.lib;winmm.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)External\ENet;$(ProjectDir)External\Lua\Win64;%(AdditionalLibraryDirectories);$(ProjectDir)External\SFML\lib</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <CustomBuildStep>
@@ -267,6 +267,7 @@
     <ClCompile Include="Src\GameConnectionManager.cpp" />
     <ClCompile Include="Src\GameConnectionRPCs.cpp" />
     <ClCompile Include="Src\GameData.cpp" />
+    <ClCompile Include="Src\LuaMain.cpp" />
     <ClCompile Include="Src\Main.cpp" />
     <ClCompile Include="Src\ObservedGameMemory.cpp" />
     <ClCompile Include="Src\Timer.cpp" />
@@ -275,6 +276,12 @@
     <ClCompile Include="Src\UserData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="External\glew-2.1.0\include\GL\eglew.h" />
+    <ClInclude Include="External\glew-2.1.0\include\GL\glew.h" />
+    <ClInclude Include="External\glew-2.1.0\include\GL\glxew.h" />
+    <ClInclude Include="External\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="External\glfw-3.3.8\include\GLFW\glfw3.h" />
+    <ClInclude Include="External\glfw-3.3.8\include\GLFW\glfw3native.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
     <ClInclude Include="External\imgui\imgui.h" />
     <ClInclude Include="External\imgui\imgui_impl_glfw.h" />
@@ -283,6 +290,106 @@
     <ClInclude Include="External\imgui\imstb_rectpack.h" />
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
+    <ClInclude Include="External\SFML\include\SFML\Audio.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\AlResource.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\Export.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\InputSoundFile.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\Listener.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\Music.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\OutputSoundFile.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\Sound.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundBuffer.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundBufferRecorder.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundFileFactory.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundFileReader.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundFileWriter.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundRecorder.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundSource.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Audio\SoundStream.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Config.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\GpuPreference.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\BlendMode.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\CircleShape.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Color.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\ConvexShape.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Drawable.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Export.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Font.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Glsl.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Glyph.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Image.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\PrimitiveType.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Rect.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\RectangleShape.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\RenderStates.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\RenderTarget.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\RenderWindow.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Shader.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Shape.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Sprite.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Text.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Texture.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Transform.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Transformable.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\Vertex.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\VertexArray.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\VertexBuffer.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Graphics\View.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Main.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\Export.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\Ftp.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\Http.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\IpAddress.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\Packet.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\Socket.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\SocketHandle.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\SocketSelector.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\TcpListener.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\TcpSocket.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Network\UdpSocket.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\OpenGL.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Clock.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Err.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Export.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\FileInputStream.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\InputStream.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Lock.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\MemoryInputStream.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Mutex.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\NativeActivity.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\NonCopyable.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Sleep.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\String.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Thread.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\ThreadLocal.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\ThreadLocalPtr.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Time.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Utf.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Vector2.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\System\Vector3.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Clipboard.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Context.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\ContextSettings.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Cursor.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Event.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Export.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\GlResource.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Joystick.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Keyboard.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Mouse.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Sensor.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Touch.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\VideoMode.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Vulkan.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\Window.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\WindowBase.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\WindowHandle.hpp" />
+    <ClInclude Include="External\SFML\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="Inc\Assets.h" />
     <ClInclude Include="Inc\Behaviours\CommonBehaviour.h" />
     <ClInclude Include="Inc\Behaviours\HomeBoxBehaviour.h" />
@@ -306,6 +413,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\RogueAssistant_mGBA.lua" />
+    <None Include="External\SFML\include\SFML\Audio\SoundFileFactory.inl" />
+    <None Include="External\SFML\include\SFML\Graphics\Glsl.inl" />
+    <None Include="External\SFML\include\SFML\Graphics\Rect.inl" />
+    <None Include="External\SFML\include\SFML\System\String.inl" />
+    <None Include="External\SFML\include\SFML\System\Thread.inl" />
+    <None Include="External\SFML\include\SFML\System\ThreadLocalPtr.inl" />
+    <None Include="External\SFML\include\SFML\System\Utf.inl" />
+    <None Include="External\SFML\include\SFML\System\Vector2.inl" />
+    <None Include="External\SFML\include\SFML\System\Vector3.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RogueAssistantCpp.rc" />
