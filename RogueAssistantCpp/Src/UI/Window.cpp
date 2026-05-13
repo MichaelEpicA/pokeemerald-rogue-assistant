@@ -100,7 +100,7 @@ void Window::EnterMainLoop(WindowCallback callback, void* userData)
             }
 
             // "close requested" event: we close the window
-            if (sfEvent.type == sf::Event::Closed)
+            if (sfEvent.type == sf::Event::Closed && m_Config.canBeDestroyed)
                 continueLoop = false;
         }
                 

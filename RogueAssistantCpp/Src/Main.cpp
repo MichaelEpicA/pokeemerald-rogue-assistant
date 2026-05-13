@@ -34,6 +34,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 }
 
 bool RogueAssistant_MainLoop(Window* window, void* userData);
+void RogueAssistant_StubFunc();
 void RogueAssistant_ThreadFunc();
 
 static void DumpScriptsNextToExe()
@@ -70,7 +71,8 @@ __declspec(dllexport) int RogueAssistant_Main(bool isStub, std::vector<std::stri
         DumpScriptsNextToExe();
         UserData::Init();
 
-        RogueAssistant_ThreadFunc();
+        RogueAssistant_StubFunc();
+        //RogueAssistant_ThreadFunc()
     }
     else
     {
@@ -103,6 +105,26 @@ struct WindowData
     PrimaryUI m_UI;
 };
 
+void RogueAssistant_StubFunc()
+{
+    WindowConfig config;
+    config.title = "Rogue Assistant";
+    config.canBeDestroyed = true;
+
+    WindowData data =
+    {
+        Window(config),
+        PrimaryUI()
+    };
+    data.m_UI.SetToStubTheme();
+
+    if (data.m_Window.Create())
+    {
+        data.m_Window.EnterMainLoop(RogueAssistant_MainLoop, &data);
+        data.m_Window.Destroy();
+    }
+}
+
 void RogueAssistant_ThreadFunc()
 {
     SetThreadDescription(GetCurrentThread(), L"RogueAssistant");
@@ -110,6 +132,7 @@ void RogueAssistant_ThreadFunc()
     WindowConfig config;
     config.title = "Rogue Assistant";
     config.imGuiEnabled = false;
+    config.canBeDestroyed = false;
 
     WindowData data =
     {

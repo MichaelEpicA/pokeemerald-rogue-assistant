@@ -107,6 +107,14 @@ PrimaryUI::~PrimaryUI()
 	m_Assets = nullptr;
 }
 
+void PrimaryUI::SetToStubTheme()
+{
+	m_Assets->m_ClearColour = sf::Color(112, 112, 176);
+	m_Assets->m_DarkFontColour = sf::Color(16, 24, 40);
+	m_Assets->m_LightFontColour = sf::Color(56, 48, 80);
+	m_Assets->m_ErrorFontColour = sf::Color(196, 24, 24);
+}
+
 void PrimaryUI::Render(Window& window)
 {
 	// Calc delta time
@@ -191,7 +199,7 @@ void PrimaryUI::Render(Window& window)
 	{
 		m_Assets->DrawLeftAlignedText(
 			gfx,
-			"Waiting for Game to connect " + m_Assets->m_LoadingSpinnerAnimText,
+			"Please launch the Game " + m_Assets->m_LoadingSpinnerAnimText,
 			c_CentreOffset + sf::Vector2f(-74, -55),
 			16,
 			m_Assets->m_LightFontColour

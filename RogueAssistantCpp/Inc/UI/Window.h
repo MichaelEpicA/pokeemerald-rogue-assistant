@@ -19,6 +19,7 @@ struct WindowConfig
 	int width = 640;
 	int height = 480;
 	bool resizable = false;
+	bool canBeDestroyed = true;
 	bool imGuiEnabled = false;
 };
 

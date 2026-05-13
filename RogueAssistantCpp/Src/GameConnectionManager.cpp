@@ -22,11 +22,13 @@ GameConnectionManager& GameConnectionManager::Instance()
 void GameConnectionManager::OpenListener()
 {
 	LOG_INFO("Game: Opening connection listener");
+	m_ListeningForConnections = true;
 }
 
 void GameConnectionManager::CloseListener()
 {
 	LOG_INFO("Game: Closing connection listener");
+	m_ListeningForConnections = false;
 }
 
 void GameConnectionManager::UpdateConnections()
@@ -35,7 +37,7 @@ void GameConnectionManager::UpdateConnections()
 	if (m_AcceptingConnection == nullptr)
 		m_AcceptingConnection = std::make_shared<GameConnection>();
 
-	if (m_ActiveConnections.empty())
+	if (m_ListeningForConnections && m_ActiveConnections.empty())
 	{
 		LOG_INFO("Game: Incoming connection...");
 		ClearRecentError();

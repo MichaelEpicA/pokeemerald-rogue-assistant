@@ -47,6 +47,7 @@ private:
 
 	std::string m_RecentError;
 	std::queue<GameDataRequest> m_PendingDataRequests;
+	bool m_ListeningForConnections = false;
 
 	std::vector<ActiveGameConnection> m_ActiveConnections;
 	GameConnectionRef m_AcceptingConnection;

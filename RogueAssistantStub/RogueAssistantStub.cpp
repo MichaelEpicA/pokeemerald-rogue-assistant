@@ -8,7 +8,7 @@
 
 __declspec(dllimport) int RogueAssistant_Main(bool isStub, std::vector<std::string> const& args);
 
-#if 1 //def _DEBUG
+#if _DEBUG
 int main(int argc, const char** argv)
 {
     std::vector<std::string> args;

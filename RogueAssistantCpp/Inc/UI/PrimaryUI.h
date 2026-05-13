@@ -14,6 +14,7 @@ public:
 	~PrimaryUI();
 
 	void Render(Window& window);
+	void SetToStubTheme();
 
 private:
 	enum class PageUI
