@@ -19,6 +19,11 @@ GameConnectionManager& GameConnectionManager::Instance()
 	return *s_Manager;
 }
 
+bool GameConnectionManager::IsValid()
+{
+	return s_Manager != nullptr;
+}
+
 void GameConnectionManager::OpenListener()
 {
 	LOG_INFO("Game: Opening connection listener");
@@ -41,6 +46,7 @@ void GameConnectionManager::UpdateConnections()
 	{
 		LOG_INFO("Game: Incoming connection...");
 		ClearRecentError();
+		m_ListeningForConnections = false; // only 1 connection per emulator now
 
 		GameConnectionRef gameConn = m_AcceptingConnection;
 		m_AcceptingConnection = nullptr;

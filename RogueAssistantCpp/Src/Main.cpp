@@ -76,7 +76,6 @@ __declspec(dllexport) int RogueAssistant_Main(bool isStub, std::vector<std::stri
     }
     else
     {
-        DumpScriptsNextToExe();
         UserData::Init();
 
         s_BackgroundThread = std::make_unique<std::thread>(RogueAssistant_ThreadFunc);

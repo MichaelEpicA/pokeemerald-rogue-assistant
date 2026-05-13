@@ -25,6 +25,7 @@ public:
 	GameConnectionManager() {};
 
 	static GameConnectionManager& Instance();
+	static bool IsValid();
 
 	void OpenListener();
 	void CloseListener();

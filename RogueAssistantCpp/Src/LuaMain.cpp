@@ -45,40 +45,13 @@ extern "C"
     //    lua_pop(lua, 1);
     //}
 
-    int rogue_attach(lua_State* lua)
-    {
-#if _DEBUG
-        LOG_INFO("Awaiting debugger attach..");
-        while (!IsDebuggerPresent())
-        {
-            Sleep(10);
-        }
-#endif
-
-        std::vector<std::string> args;
-        RogueAssistant_Main(false, args);
-        return 0;
-    }
-
-    int rogue_frame(lua_State* lua)
-    {
-        RogueAssistant_Frame();
-        return 0;
-    }
-
-    int rogue_shutdown(lua_State* lua)
-    {
-        RogueAssistant_Shutdown();
-        return 0;
-    }
-
     GameDataRequest s_RecentReq;
     std::vector<u8> s_Response;
     size_t s_WriteIndex = 0;
 
     int rogue_next_data_request(lua_State* lua)
     {
-        if (GameConnectionManager::Instance().TryPopDataRequest(s_RecentReq))
+        if (GameConnectionManager::IsValid() && GameConnectionManager::Instance().TryPopDataRequest(s_RecentReq))
         {
             s_Response.clear();
             s_WriteIndex = 0;
@@ -156,16 +129,44 @@ extern "C"
         return 0;
     }
 
-    __declspec(dllexport) int luaopen_RogueAssistant(lua_State* lua)
+    int rogue_attach(lua_State* lua)
     {
-        lua_register(lua, "rogue_attach", rogue_attach);
-        lua_register(lua, "rogue_frame", rogue_frame);
-        lua_register(lua, "rogue_shutdown", rogue_shutdown);
+        // Not entirely sure why but not delayed registering these can case mGBA to crash???
         lua_register(lua, "rogue_next_data_request", rogue_next_data_request);
         lua_register(lua, "rogue_data_request_is_read", rogue_data_request_is_read);
         lua_register(lua, "rogue_data_request_get_read", rogue_data_request_get_read);
         lua_register(lua, "rogue_data_request_get_write", rogue_data_request_get_write);
         lua_register(lua, "rogue_data_request_provide_result", rogue_data_request_provide_result);
+
+        std::vector<std::string> args;
+        RogueAssistant_Main(false, args);
+        return 0;
+    }
+
+    int rogue_frame(lua_State* lua)
+    {
+        RogueAssistant_Frame();
+        return 0;
+    }
+
+    int rogue_shutdown(lua_State* lua)
+    {
+        RogueAssistant_Shutdown();
+        return 0;
+    }
+
+    __declspec(dllexport) int luaopen_RogueAssistant(lua_State* lua)
+    {
+#if _DEBUG
+        LOG_INFO("Awaiting debugger attach..");
+        while (!IsDebuggerPresent())
+        {
+            Sleep(10);
+        }
+#endif
+        lua_register(lua, "rogue_attach", rogue_attach);
+        lua_register(lua, "rogue_frame", rogue_frame);
+        lua_register(lua, "rogue_shutdown", rogue_shutdown);
 
         return 1;
     }
