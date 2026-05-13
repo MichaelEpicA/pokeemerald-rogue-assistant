@@ -8,10 +8,15 @@
 
 #include <SFML/Network.hpp>
 
+static std::unique_ptr<GameConnectionManager> s_Manager;
+
 GameConnectionManager& GameConnectionManager::Instance()
 {
-	static GameConnectionManager manager;
-	return manager;
+	if (s_Manager == nullptr)
+	{
+		s_Manager = std::make_unique<GameConnectionManager>();
+	}
+	return *s_Manager;
 }
 
 void GameConnectionManager::OpenListener()

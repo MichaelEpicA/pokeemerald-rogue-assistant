@@ -22,6 +22,8 @@ struct ActiveGameConnection
 class GameConnectionManager
 {
 public:
+	GameConnectionManager() {};
+
 	static GameConnectionManager& Instance();
 
 	void OpenListener();
@@ -41,7 +43,6 @@ public:
 	inline std::string const& GetRecentError() const { return m_RecentError; }
 
 private:
-	GameConnectionManager() = default;
 	void BackgroundUpdate(GameConnectionRef game);
 
 	std::string m_RecentError;
