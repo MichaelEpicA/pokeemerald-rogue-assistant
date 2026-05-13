@@ -1,5 +1,6 @@
 #include "GameConnectionManager.h"
 #include "GameConnection.h"
+#include "GameDataRequest.h"
 
 #include "Log.h"
 
@@ -16,23 +17,11 @@ GameConnectionManager& GameConnectionManager::Instance()
 void GameConnectionManager::OpenListener()
 {
 	LOG_INFO("Game: Opening connection listener");
-	ASSERT_MSG(m_Listener == NULL, "Listener already active");
-	m_Listener = std::make_unique<sf::TcpListener>();
-	m_Listener->setBlocking(false);
-
-	if (m_Listener->listen(GameConnectionManager::c_DefaultPort) != sf::Socket::Done)
-	{
-		ASSERT_FAIL("Game: Failed to open connection listener");
-		return;
-	}
 }
 
 void GameConnectionManager::CloseListener()
 {
 	LOG_INFO("Game: Closing connection listener");
-	ASSERT_MSG(m_Listener != NULL, "Listener not active");
-	m_Listener->close();
-	m_Listener = nullptr;
 }
 
 void GameConnectionManager::UpdateConnections()
@@ -41,7 +30,7 @@ void GameConnectionManager::UpdateConnections()
 	if (m_AcceptingConnection == nullptr)
 		m_AcceptingConnection = std::make_shared<GameConnection>();
 
-	if (m_Listener->accept(m_AcceptingConnection->m_Socket) == sf::Socket::Done)
+	if (m_ActiveConnections.empty())
 	{
 		LOG_INFO("Game: Incoming connection...");
 		ClearRecentError();
@@ -67,6 +56,23 @@ void GameConnectionManager::UpdateConnections()
 		else
 			++i;
 	}
+}
+
+void GameConnectionManager::EnqueueGameDataRequest(GameDataRequest const& request)
+{
+	m_PendingDataRequests.push(request);
+}
+
+bool GameConnectionManager::TryPopDataRequest(GameDataRequest& target)
+{
+	if (!m_PendingDataRequests.empty())
+	{
+		target = m_PendingDataRequests.front();
+		m_PendingDataRequests.pop();
+		return true;
+	}
+
+	return false;
 }
 
 void GameConnectionManager::BackgroundUpdate(GameConnectionRef game)

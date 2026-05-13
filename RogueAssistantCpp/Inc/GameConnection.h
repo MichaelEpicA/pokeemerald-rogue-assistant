@@ -50,7 +50,6 @@ public:
 
 	void WriteRequest(GameMessageID messageId, size_t addr, void const* data, size_t size);
 	void ReadRequest(GameMessageID messageId, size_t addr, size_t size);
-	void ManualFlush() { FlushCommands(); }
 
 	ObservedGameMemory& GetObservedGameMemory();
 	ObservedGameMemory const& GetObservedGameMemory() const;
@@ -65,9 +64,6 @@ private:
 	void AddDefaultBehaviours();
 	bool RemoveBehaviourInternal(IGameConnectionBehaviour* behaviour);
 
-	void SendCommand(std::string const& command);
-	void FlushCommands();
-
 	void OnRecieveData(u8* data, size_t size);
 	void OnRecieveMessage(GameMessageID messageId, u8 const* data, size_t size);
 
@@ -76,14 +72,9 @@ private:
 	static std::string const c_FirstHandshake;
 	static std::string const c_SecondHandshake;
 
-	sf::TcpSocket m_Socket;
 	GameConnectionState m_State;
 	UpdateTimer m_UpdateTimer;
 	int m_UpdateFrame;
-
-	u8 m_RecieveBuffer[4096];
-	u8 m_SendBuffer[4096];
-	size_t m_SendSize;
 
 	RPCQueue m_GameRPCs;
 	std::unique_ptr<ObservedGameMemory> m_ObservedGameMemory;

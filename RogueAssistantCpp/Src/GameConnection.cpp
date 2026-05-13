@@ -1,5 +1,7 @@
 #include "GameConnection.h"
+#include "GameConnectionManager.h"
 #include "GameData.h"
+#include "GameDataRequest.h"
 #include "Log.h"
 #include "Behaviours/CommonBehaviour.h"
 
@@ -9,32 +11,30 @@ std::string const GameConnection::c_SecondHandshake = "Em68TrzBAFlyhBCOm4XQIjGWb
 GameConnection::GameConnection()
 	: m_State(GameConnectionState::AwaitingFirstHandshake)
 	, m_GameRPCs(*this)
-	, m_SendSize(0)
 	, m_UpdateFrame(0)
 	, m_UpdateTimer(UpdateTimer::c_10UPS) // todo - give option? 10ups is less laggy emu but smoother mp
 {
 	m_ObservedGameMemory = std::make_unique<ObservedGameMemory>(*this);
-	m_Socket.setBlocking(false);
 }
 
 GameConnection::~GameConnection()
 {
-	m_Socket.disconnect();
 }
 
 void GameConnection::Update()
 {
-	size_t recvSize;
 	int frame = m_UpdateFrame++;
 
-	// Split send and recv each other frame
-	bool processRecv = frame % 2;
-
-	if (processRecv)
+	switch (m_State)
 	{
-		if (m_Socket.receive(m_RecieveBuffer, sizeof(m_RecieveBuffer), recvSize) == sf::Socket::Done)
-			OnRecieveData(m_RecieveBuffer, recvSize);
+	case GameConnectionState::AwaitingFirstHandshake:
+	case GameConnectionState::AwaitingSecondHandshake:
+		m_State = GameConnectionState::Connected;
+		LOG_INFO("Game: Connection accepted");
+		AddDefaultBehaviours();
+		break;
 	}
+
 
 	if (m_UpdateTimer.Update())
 	{
@@ -61,9 +61,6 @@ void GameConnection::Update()
 
 		m_BehavioursToRemove.clear();
 	}
-
-	if (!processRecv)
-		FlushCommands();
 }
 
 void GameConnection::Disconnect()
@@ -71,7 +68,6 @@ void GameConnection::Disconnect()
 	for (auto behaviour : m_Behaviours)
 		behaviour->OnDetach(*this);
 
-	m_Socket.disconnect();
 	m_State = GameConnectionState::Disconnected;
 }
 
@@ -149,29 +145,7 @@ void GameConnection::OnRecieveData(u8* data, size_t size)
 	switch (m_State)
 	{
 	case GameConnectionState::AwaitingFirstHandshake:
-		if (HandleExpectedHandshake(c_FirstHandshake, data, size))
-		{
-			// Tell script to continue
-			m_Socket.send("con", 3);
-			m_State = GameConnectionState::AwaitingSecondHandshake;
-		}
-		else
-		{
-			Disconnect();
-		}
-		break;
-
 	case GameConnectionState::AwaitingSecondHandshake:
-		if (HandleExpectedHandshake(c_SecondHandshake, data, size))
-		{
-			m_State = GameConnectionState::Connected;
-			LOG_INFO("Game: Connection accepted");
-			AddDefaultBehaviours();
-		}
-		else
-		{
-			Disconnect();
-		}
 		break;
 
 	case GameConnectionState::Connected:
@@ -262,71 +236,35 @@ void GameConnection::WriteRequest(GameMessageID messageId, size_t addr, void con
 {
 	ASSERT_MSG(IsReady(), "Attempting to write data, but not ready");
 
-	// Really inefficient, but works...
-	// Write name then numbers in ascii split by ;
-	std::string command = "w;" + std::to_string(messageId.CompactedID) + ";" + std::to_string(addr);
-	u8 const* read = reinterpret_cast<u8 const*>(data);
+	GameDataRequest req;
+	req.m_Type = GameDataRequest::REQUEST_WRITE;
+	req.m_Address = addr;
+	req.m_Size = size;
+	req.m_Callback = [this, messageId](std::vector<u8> const& data)
+		{
+			if(m_State != GameConnectionState::Disconnected)
+				OnRecieveMessage(messageId, data.data(), data.size());
+		};
 
-	for (size_t i = 0; i < size; ++i)
-	{
-		command += ";" + std::to_string(read[i]);
-	}
+	req.m_Data.resize(size);
+	memcpy_s(req.m_Data.data(), req.m_Data.size(), data, size);
 
-	SendCommand(command);
+	GameConnectionManager::Instance().EnqueueGameDataRequest(req);
 }
 
 void GameConnection::ReadRequest(GameMessageID messageId, size_t addr, size_t size)
 {
 	ASSERT_MSG(IsReady(), "Attempting to write data, but not ready");
 
-	// Really inefficient, but works...
-	// Write name then numbers in ascii split by ;
-	std::string command = "r;" + std::to_string(messageId.CompactedID) + ";" + std::to_string(addr) + ";" + std::to_string(size);
-
-	SendCommand(command);
-}
-
-void GameConnection::SendCommand(std::string const& command)
-{
-	size_t size = command.length();
-
-	if (m_SendSize != 0)
-	{
-		// Append : between multiple commands
-		if (m_SendSize + size + 1 >= sizeof(m_SendBuffer))
+	GameDataRequest req;
+	req.m_Type = GameDataRequest::REQUEST_READ;
+	req.m_Address = addr;
+	req.m_Size = size;
+	req.m_Callback = [this, messageId](std::vector<u8> const& data)
 		{
-			// Reached capacity, so have to send what we have buffered now
-			FlushCommands();
-		}
-	}
+			if (m_State != GameConnectionState::Disconnected)
+				OnRecieveMessage(messageId, data.data(), data.size());
+		};
 
-	memcpy(m_SendBuffer + m_SendSize, command.c_str(), size);
-	m_SendSize += size;
-	m_SendBuffer[m_SendSize++] = ':';
-}
-
-void GameConnection::FlushCommands()
-{
-	if (m_SendSize != 0)
-	{
-		// Send data in a big batch
-		size_t sentAmount;
-		size_t offset = 0;
-		m_Socket.send(m_SendBuffer, m_SendSize, sentAmount);
-
-		if (m_SendSize != sentAmount)
-		{
-			if (sentAmount == 0)
-			{
-				LOG_WARN("Cannot send data (Assuming disconnect)");
-				Disconnect();
-			}
-			else
-			{
-				ASSERT_FAIL("Couldn't set every things! (Need to see when this happens to decide how to handle it)");
-			}
-		}
-
-		m_SendSize = 0;
-	}
+	GameConnectionManager::Instance().EnqueueGameDataRequest(req);
 }

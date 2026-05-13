@@ -257,6 +257,7 @@
     <ClInclude Include="External\SFML\include\SFML\OpenGL.hpp" />
     <ClInclude Include="External\SFML\include\SFML\System.hpp" />
     <ClInclude Include="External\SFML\include\SFML\Window.hpp" />
+    <ClInclude Include="Inc\GameDataRequest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -270,7 +270,6 @@ bool HomeBoxBehaviour::PumpWriteMonBox(GameConnection& game)
 				boxWriteRequest.m_Data + boxWriteRequest.m_Offset,
 				writeSize
 			);
-			game.ManualFlush();
 
 			boxWriteRequest.m_BytesRemaining -= writeSize;
 			boxWriteRequest.m_Offset += writeSize;

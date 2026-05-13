@@ -1,11 +1,15 @@
 #pragma once
 #include "Defines.h"
 #include "SFML/Network.hpp"
+#include "GameDataRequest.h"
 #include <memory>
 #include <thread>
+#include <queue>
 
 class GameConnection;
 class GameConnectionManager;
+
+struct GameDataRequest;
 
 typedef std::shared_ptr<GameConnection> GameConnectionRef;
 
@@ -18,14 +22,14 @@ struct ActiveGameConnection
 class GameConnectionManager
 {
 public:
-	static int const c_DefaultPort = 30125;
-
 	static GameConnectionManager& Instance();
 
 	void OpenListener();
 	void CloseListener();
 
 	void UpdateConnections();
+	void EnqueueGameDataRequest(GameDataRequest const& request);
+	bool TryPopDataRequest(GameDataRequest& target);
 
 	inline bool AnyConnectionsActive() const { return !m_ActiveConnections.empty(); }
 	inline int ActiveConnectionCount() const { return (int)m_ActiveConnections.size(); }
@@ -40,8 +44,8 @@ private:
 	GameConnectionManager() = default;
 	void BackgroundUpdate(GameConnectionRef game);
 
-	std::unique_ptr<sf::TcpListener> m_Listener;
 	std::string m_RecentError;
+	std::queue<GameDataRequest> m_PendingDataRequests;
 
 	std::vector<ActiveGameConnection> m_ActiveConnections;
 	GameConnectionRef m_AcceptingConnection;
