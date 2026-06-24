@@ -1,9 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-Debug/cmake_install.cmake",
-		"C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-Debug/RogueAssistantCpp/cmake_install.cmake",
-		"C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-Debug/RogueAssistantStub/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

@@ -1,8 +1,0 @@
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/CMakeFiles/edit_cache.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/CMakeFiles/rebuild_cache.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantCpp/CMakeFiles/RogueAssistantCpp.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantCpp/CMakeFiles/edit_cache.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantCpp/CMakeFiles/rebuild_cache.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantStub/CMakeFiles/RogueAssistantStub.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantStub/CMakeFiles/edit_cache.dir
-C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/RogueAssistantStub/CMakeFiles/rebuild_cache.dir
