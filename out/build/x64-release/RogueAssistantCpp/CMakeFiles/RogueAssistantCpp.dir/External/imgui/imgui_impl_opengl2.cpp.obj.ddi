@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\External\\imgui\\imgui_impl_opengl2.cpp.obj",
+            "outputs": [
+                "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\External\\imgui\\imgui_impl_opengl2.cpp.obj.ddi"
+            ],
+            "requires": []
+        }
+    ]
+}

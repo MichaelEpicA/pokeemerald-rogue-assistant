@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\Src\\Behaviours\\CommonBehaviour.cpp.obj",
+            "outputs": [
+                "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\Src\\Behaviours\\CommonBehaviour.cpp.obj.ddi"
+            ],
+            "requires": []
+        }
+    ]
+}

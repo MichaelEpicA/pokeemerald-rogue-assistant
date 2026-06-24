@@ -4,7 +4,6 @@
 #include <string>
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
 
 #include "GameConnectionManager.h"
 
@@ -22,6 +21,7 @@ extern "C"
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"
+#include <cstring>
 
     // Can't call lua directly from C for some reason, so work around that by having the lua call US
     // Example https://www.cs.usfca.edu/~galles/cs420/lecture/LuaLectures/LuaAndC.html
@@ -122,7 +122,7 @@ extern "C"
 
             s_Response.resize(s_RecentReq.m_Size);
 
-            memcpy_s(s_Response.data(), s_Response.size(), data, s_RecentReq.m_Size);
+            memcpy(s_Response.data(), data, s_RecentReq.m_Size);
         }
 
         s_RecentReq.m_Callback(s_Response);
@@ -155,14 +155,32 @@ extern "C"
         return 0;
     }
 
-    __declspec(dllexport) int luaopen_RogueAssistant(lua_State* lua)
-    {
+    /*bool IsDebuggerPresent() {
+        std::ifstream statusFile("/proc/self/status");
+        std::string line;
+
+        while (std::getline(statusFile, line)) {
+            if (line.rfind("TracerPid:", 0) == 0) {
+                // Extract the PID value
+                int tracerPid = std::stoi(line.substr(10));
+                return tracerPid != 0;
+            }   
+        }
+        return false;
+    }*/
+#if defined(_WIN32)
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __attribute__((visibility("default")))
+#endif
+    EXPORT int luaopen_RogueAssistant(lua_State* lua)
+    {  
 #if _DEBUG
         LOG_INFO("Awaiting debugger attach..");
-        while (!IsDebuggerPresent())
+        /*while (!IsDebuggerPresent())
         {
-            Sleep(10);
-        }
+            //Sleep(10);
+        }*/
 #endif
         lua_register(lua, "rogue_attach", rogue_attach);
         lua_register(lua, "rogue_frame", rogue_frame);

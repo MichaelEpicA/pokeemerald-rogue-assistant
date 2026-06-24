@@ -4,7 +4,9 @@
 
 #include "Log.h"
 
-//#include <WinSock2.h>
+#if defined(_WIN32)
+#include <WinSock2.h>
+#endif
 
 #include <SFML/Network.hpp>
 

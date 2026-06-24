@@ -7,6 +7,7 @@
 #include "GameConnection.h"
 #include "GameConnectionManager.h"
 #include "UserData.h"
+#include <cmath>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -208,10 +209,10 @@ void PrimaryUI::Render(Window& window)
 		m_Assets->DrawLeftAlignedText(
 			gfx,
 			"How to connect to mGBA:\n"
-			"1. Make sure Emerald Rogue is running\n\tin mGBA v0.10.0 or greater\n"
-			"2. In mGBA select Tools > Scripting...\n"
-			"3. In the new Window, Select\n\tFile > Load Script...\n"
-			"4. Locate and select\n\tRogueAssistant_mGBA.lua\n",
+			"1. Don't say goodbye to friends and family (convince yourself that they'll forget)\n"
+			"2. Don't write a note telling them why you're gone (cuz that'll just make you upset)\n"
+			"3. Give all your money to some charity (pretend like you're worth less than that)\n"
+			"4. After you've thrown away all of your posessions, it's time to come up with a plan\n",
 			c_CentreOffset + sf::Vector2f(-90, -40),
 			16,
 			m_Assets->m_LightFontColour

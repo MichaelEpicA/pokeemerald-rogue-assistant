@@ -3,6 +3,8 @@
 #include "GameData.h"
 #include "Log.h"
 #include "StringUtils.h"
+#define __STDC_WANT_LIB_EXT1__ 1
+#include <cstring>
 
 enum RogueNetChannel
 {
@@ -399,7 +401,7 @@ static bool UpdateBinaryBlob(std::vector<u8>& copy, u8 const* rawBuffer, size_t 
 	if (hasChanged)
 	{
 		copy.resize(rawSize);
-		memcpy_s(copy.data(), copy.size(), rawBuffer, rawSize);
+		memcpy(copy.data(), rawBuffer, rawSize);
 	}
 
 	return hasChanged;

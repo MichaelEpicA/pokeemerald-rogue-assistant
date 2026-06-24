@@ -1,5 +1,5 @@
-#include "UI\PrimaryUI.h"
-#include "UI\Window.h"
+#include "UI/PrimaryUI.h"
+#include "UI/Window.h"
 #include "Assets.h"
 #include "GameConnectionManager.h"
 #include "Log.h"
@@ -14,24 +14,6 @@
 #include <Windows.h>
 
 #pragma warning(disable: 4244)
-
-BOOL APIENTRY DllMain(HMODULE hModule,
-    DWORD  ul_reason_for_call,
-    LPVOID lpReserved
-)
-{
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-    case DLL_THREAD_ATTACH:
-        break;
-
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
-}
 
 bool RogueAssistant_MainLoop(Window* window, void* userData);
 void RogueAssistant_StubFunc();
@@ -64,7 +46,12 @@ static void DumpScriptsNextToExe()
 static std::unique_ptr<std::thread> s_BackgroundThread;
 static bool s_CloseRequested = false;
 
-__declspec(dllexport) int RogueAssistant_Main(bool isStub, std::vector<std::string> const& args)
+#if defined(_WIN32)
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __attribute__((visibility("default")))
+#endif
+EXPORT int RogueAssistant_Main(bool isStub, std::vector<std::string> const& args)
 {
     if (isStub)
     {
@@ -126,8 +113,9 @@ void RogueAssistant_StubFunc()
 
 void RogueAssistant_ThreadFunc()
 {
+    #if defined(_WIN32)
     SetThreadDescription(GetCurrentThread(), L"RogueAssistant");
-
+    #endif
     WindowConfig config;
     config.title = "Rogue Assistant";
     config.imGuiEnabled = false;

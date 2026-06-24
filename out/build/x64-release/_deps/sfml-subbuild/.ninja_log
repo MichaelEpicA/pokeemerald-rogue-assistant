@@ -1,0 +1,21 @@
+# ninja log v7
+11	105	8039680589764431	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	ea39b10aa51ecef
+11	105	8039680589764431	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	ea39b10aa51ecef
+106	129657	8039681885282427	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	1cfc1b0ef89cf2f
+106	129657	8039681885282427	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	1cfc1b0ef89cf2f
+129658	129852	8039681885397733	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	3466ea950bfb5d58
+129658	129852	8039681885397733	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	3466ea950bfb5d58
+129852	129937	8039681888098573	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	1ad818a4ed2c03b0
+129852	129937	8039681888098573	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	1ad818a4ed2c03b0
+129938	130019	8039681888922042	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	20072ef0b6fbb847
+129938	130019	8039681888922042	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	20072ef0b6fbb847
+130019	130100	8039681889731468	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	b36717afc770b243
+130019	130100	8039681889731468	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	b36717afc770b243
+130100	130179	8039681890514054	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	eddb264239cbe58
+130100	130179	8039681890514054	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	eddb264239cbe58
+130179	130262	8039681891331986	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	24ff009ede1d8c2e
+130179	130262	8039681891331986	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	24ff009ede1d8c2e
+130262	130371	8039681892430001	CMakeFiles/sfml-populate-complete	5fc4dd1e6b346541
+130262	130371	8039681892430001	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	5fc4dd1e6b346541
+130262	130371	8039681892430001	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	5fc4dd1e6b346541
+130262	130371	8039681892430001	C:/Users/Michael/Downloads/pokeemerald-rogue-assistant-main/pokeemerald-rogue-assistant-main/out/build/x64-release/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	5fc4dd1e6b346541

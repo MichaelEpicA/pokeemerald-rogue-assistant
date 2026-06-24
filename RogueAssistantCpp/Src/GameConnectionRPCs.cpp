@@ -1,6 +1,7 @@
 #include "GameConnectionRPCs.h"
 #include "GameConnection.h"
 #include "Log.h"
+#include <cstring>
 
 enum class MethodId
 {

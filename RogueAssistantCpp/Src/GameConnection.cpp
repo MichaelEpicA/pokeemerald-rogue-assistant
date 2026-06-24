@@ -4,6 +4,7 @@
 #include "GameDataRequest.h"
 #include "Log.h"
 #include "Behaviours/CommonBehaviour.h"
+#include <cstring>
 
 std::string const GameConnection::c_FirstHandshake = "3to8UEaoManH7wB4lKlLRgywSHHKmI0g";
 std::string const GameConnection::c_SecondHandshake = "Em68TrzBAFlyhBCOm4XQIjGWbdNhuplY";
@@ -247,7 +248,7 @@ void GameConnection::WriteRequest(GameMessageID messageId, size_t addr, void con
 		};
 
 	req.m_Data.resize(size);
-	memcpy_s(req.m_Data.data(), req.m_Data.size(), data, size);
+	memcpy(req.m_Data.data(), data, size);
 
 	GameConnectionManager::Instance().EnqueueGameDataRequest(req);
 }

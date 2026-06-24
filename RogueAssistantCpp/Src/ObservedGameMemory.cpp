@@ -1,7 +1,7 @@
 #include "ObservedGameMemory.h"
 #include "GameConnection.h"
 #include "Log.h"
-
+#include <cstring>
 
 // Helpers
 //

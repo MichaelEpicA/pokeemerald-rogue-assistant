@@ -1,5 +1,6 @@
 #include "DataStream.h"
 #include "Log.h"
+#include <Defines.h>
 
 DataStream::DataStream()
 	: m_Pos(0)

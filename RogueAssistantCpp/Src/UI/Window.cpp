@@ -1,9 +1,8 @@
-#include "UI\Window.h"
+#include "UI/Window.h"
 #include "Assets.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <Windows.h>
 
 #include "Defines.h"
 #include "Log.h"
@@ -74,7 +73,7 @@ void Window::EnterMainLoop(WindowCallback callback, void* userData)
                 {
                     if (sfEvent.text.unicode == 22) // ctrl + v
                     {
-                        if (OpenClipboard(NULL))
+                        /*if (OpenClipboard(NULL))
                         {
                             HANDLE h = GetClipboardData(CF_TEXT);
                             char* textPtr = (char*)h;
@@ -88,6 +87,7 @@ void Window::EnterMainLoop(WindowCallback callback, void* userData)
 
                             CloseClipboard();
                         }
+                        */
                     }
                     else if (sfEvent.text.unicode == 1) // ctrl + a
                     {

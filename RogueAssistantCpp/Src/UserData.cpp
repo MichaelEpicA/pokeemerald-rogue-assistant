@@ -4,6 +4,9 @@
 
 #include <cstdlib>
 #include <filesystem>
+#include <fstream>
+#include <cstring>
+
 
 #pragma warning( push )
 #pragma warning( disable : 4244)
@@ -17,12 +20,23 @@ static std::wstring GetEnvVar(std::wstring const& var, std::wstring const& defau
 {
 	wchar_t* buf = nullptr;
 	size_t sz = 0;
+	#ifdef _WIN32
 	if (_wdupenv_s(&buf, &sz, var.c_str()) == 0 && buf != nullptr)
 	{
 		std::wstring output = buf;
 		free(buf);
 		return output;
 	}
+	#else
+	char* bufc = std::getenv("YOUR_ENV_VARIABLE");
+	if (bufc != nullptr) {
+		// Use 'buf' here
+		size_t newSize = strlen(bufc) + 1;
+		wchar_t* wStr = new wchar_t[newSize];
+		mbstowcs(wStr, bufc, newSize);
+		return wStr;
+	}
+	#endif
 	return defaultVal;
 }
 
@@ -35,11 +49,11 @@ static std::wstring FormatPath(std::wstring const& path)
 		// Relative path
 		fs::path p = GetEnvVar(L"appdata", L"save") + L"/.pokabbie/rogue_assistant/" + path;
 		p = std::filesystem::absolute(p);
-		output = p;
+		output = p.wstring();
 	}
 	else
 	{
-		// Already absolute path
+		// Already absolute path 
 		output = path;
 	}
 
@@ -82,7 +96,7 @@ bool UserData::TryOpenReadFile(std::wstring const& inPath, std::fstream& outStre
 		LOG_INFO("UserData::OpenRead %s", std::string(fullPath.begin(), fullPath.end()).c_str());
 
 		outStream.close();
-		outStream.open(fullPath.c_str(), std::ios::binary | std::ios::in);
+		outStream.open(fs::path(fullPath), std::ios::binary | std::ios::in);
 		return outStream.is_open();
 	}
 
@@ -99,7 +113,7 @@ bool UserData::TryOpenWriteFile(std::wstring const& inPath, std::fstream& outStr
 		LOG_INFO("UserData::OpenWrite %s", std::string(fullPath.begin(), fullPath.end()).c_str());
 
 		outStream.close();
-		outStream.open(fullPath.c_str(), std::ios::binary | std::ios::out | std::ios::trunc);
+		outStream.open(fs::path(fullPath), std::ios::binary | std::ios::out | std::ios::trunc);
 		return outStream.is_open();
 	}
 
@@ -116,7 +130,7 @@ bool UserData::TryOpenAppendFile(std::wstring const& inPath, std::fstream& outSt
 		LOG_INFO("UserData::OpenWrite %s", std::string(fullPath.begin(), fullPath.end()).c_str());
 
 		outStream.close();
-		outStream.open(fullPath.c_str(), std::ios::out | std::ios::app);
+		outStream.open(fs::path(fullPath), std::ios::out | std::ios::app);
 		return outStream.is_open();
 	}
 

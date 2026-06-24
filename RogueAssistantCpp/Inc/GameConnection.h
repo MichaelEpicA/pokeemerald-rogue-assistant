@@ -7,9 +7,12 @@
 #include "ObservedGameMemory.h"
 #include "SFML/Network.hpp"
 #include "Timer.h"
-
+#include <cstdint>
+#include <stdint.h> 
 #include <functional>
 #include <memory>
+
+using u8 = std::uint8_t; // add this if you want to keep using `u8`
 
 class GameConnectionManager;
 class IGameConnectionTask;

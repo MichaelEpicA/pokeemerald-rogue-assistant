@@ -1,0 +1,47 @@
+ninja_dyndep_version = 1.0
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_demo.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_draw.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_impl_glfw.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_impl_opengl2.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_tables.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui_widgets.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\External\imgui\imgui.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Assets.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Behaviours\CommonBehaviour.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Behaviours\HomeBoxBehaviour.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Behaviours\MultiplayerBehaviour.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\DataStream.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\GameConnection.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\GameConnectionManager.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\GameConnectionRPCs.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\GameData.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\LuaMain.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Main.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\ObservedGameMemory.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\Timer.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\UI\PrimaryUI.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\UI\Window.cpp.obj: dyndep
+
+build RogueAssistantCpp\CMakeFiles\RogueAssistantCpp.dir\Src\UserData.cpp.obj: dyndep
+

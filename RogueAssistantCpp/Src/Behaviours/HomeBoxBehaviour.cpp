@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "Log.h"
 #include "UserData.h"
+#include <cstring>
 
 void HomeBoxBehaviour::OnAttach(GameConnection& game)
 {

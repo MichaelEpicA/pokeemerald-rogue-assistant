@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\Src\\Timer.cpp.obj",
+            "outputs": [
+                "C:\\Users\\Michael\\Downloads\\pokeemerald-rogue-assistant-main\\pokeemerald-rogue-assistant-main\\out\\build\\x64-Debug\\vc140.pdb",
+                "RogueAssistantCpp\\CMakeFiles\\RogueAssistantCpp.dir\\Src\\Timer.cpp.obj.ddi"
+            ],
+            "requires": []
+        }
+    ]
+}
