@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.31)
 project(RogueAssistantStub LANGUAGES CXX)
 
-add_executable(RogueAssistantStub WIN32)
+add_executable(RogueAssistantStub)
 
 target_sources(RogueAssistantStub
     PRIVATE

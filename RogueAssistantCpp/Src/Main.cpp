@@ -11,8 +11,9 @@
 #include <thread>
 #include <vector>
 
-#include <Windows.h>
-
+#if defined(_WIN32)
+    #include <Windows.h>
+#endif
 #pragma warning(disable: 4244)
 
 bool RogueAssistant_MainLoop(Window* window, void* userData);

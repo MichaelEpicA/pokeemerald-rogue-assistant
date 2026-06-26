@@ -1,33 +1,67 @@
 cmake_minimum_required(VERSION 3.28)
 project(RogueAssistantCpp LANGUAGES CXX)
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-include(FetchContent)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 2.6.2
+set(BUILD_SHARED_LIBS OFF)
+if(WIN32)
+add_custom_target(
+EmbeddedFiles
+COMMENT "Embedding files..."
+COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/External/bin2cpp/bin/bin2cpp.exe --dir=${CMAKE_CURRENT_SOURCE_DIR}/Assets --output=${CMAKE_CURRENT_SOURCE_DIR}/Embedded
+)
+elseif(LINUX)
+add_custom_target(
+EmbeddedFiles
+COMMENT "Embedding files..."
+COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/External/bin2cpp/bin/bin2cpp --dir=${CMAKE_CURRENT_SOURCE_DIR}/Assets --output=${CMAKE_CURRENT_SOURCE_DIR}/Embedded
+)
+endif()
+    include(FetchContent)
+    #[[
+    FetchContent_Declare(bin2cpp_cli
+    GIT_REPOSITORY https://github.com/end2endzone/bin2cpp.git
+    GIT_TAG 3.1.0
     GIT_SHALLOW ON
     EXCLUDE_FROM_ALL
     SYSTEM)
-set(BUILD_SHARED_LIBS OFF)
-FetchContent_MakeAvailable(SFML)
+    FetchContent_MakeAvailable(bin2cpp_cli)
+    add_custom_target(bin2cpp_cli
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${bin2cpp_cli_BINARY_DIR}"
+        COMMAND ${CMAKE_COMMAND} "${bin2cpp_cli_SOURCE_DIR}" -B "${bin2cpp_BINARY_DIR}" -DCMAKE_BUILD_TYPE=Release
+        COMMAND ${CMAKE_COMMAND} --build "${bin2cpp_cli_BINARY_DIR}"
+        COMMENT "Building bin2cpp..."
+    ) 
+    #]]
 
-find_package(OpenGL REQUIRED)
-find_package(PkgConfig REQUIRED)
+if(LINUX)
+    FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.6.2
+        GIT_SHALLOW ON
+        EXCLUDE_FROM_ALL
+        SYSTEM)
+    FetchContent_MakeAvailable(SFML)
 
-find_package(Freetype REQUIRED)
-find_package(glfw3 REQUIRED)
-pkg_check_modules(LUA REQUIRED lua5.4)
-pkg_check_modules(ENET REQUIRED libenet)
+    find_package(OpenGL REQUIRED)
+    find_package(PkgConfig REQUIRED)
+
+    find_package(Freetype REQUIRED)
+    find_package(glfw3 REQUIRED)
+    pkg_check_modules(LUA REQUIRED lua5.4)
+    pkg_check_modules(ENET REQUIRED libenet)
+endif()
 
 add_library(RogueAssistantCpp SHARED)
 
+add_dependencies(RogueAssistantCpp EmbeddedFiles)
+
 target_include_directories(RogueAssistantCpp
     PRIVATE
+        if(LINUX)
         ${sfml_SOURCE_DIR}/include
         ${LUA_INCLUDE_DIRS}
         ${ENET_INCLUDE_DIRS}
+        endif()
         "${CMAKE_CURRENT_SOURCE_DIR}/Inc"
         "${CMAKE_CURRENT_SOURCE_DIR}/External/glfw-3.3.8/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/External/imgui"
@@ -95,32 +129,54 @@ target_link_directories(RogueAssistantCpp
         "$<$<STREQUAL:${CMAKE_CXX_COMPILER_ARCHITECTURE_ID},x64>:${CMAKE_CURRENT_SOURCE_DIR}/External/Lua/Win64>"
         "$<$<STREQUAL:${CMAKE_CXX_COMPILER_ARCHITECTURE_ID},x64>:${CMAKE_CURRENT_SOURCE_DIR}/External/glfw-3.3.8/lib/Win64>"
 )
+if(WIN32)
+    target_link_libraries(RogueAssistantCpp
+        PRIVATE
+        opengl32.lib
+        lua54.lib
+        freetype.lib
+        winmm.lib
+        gdi32.lib
+        glfw3.lib
+        ws2_32.lib
+        "$<$<CONFIG:Debug>:sfml-system-s-d.lib>"
+        "$<$<CONFIG:Debug>:sfml-network-s-d.lib>"
+        "$<$<CONFIG:Debug>:sfml-window-s-d.lib>"
+        "$<$<CONFIG:Debug>:sfml-graphics-s-d.lib>"
+        "$<$<CONFIG:Release>:sfml-system-s.lib>"
+        "$<$<CONFIG:Release>:sfml-network-s.lib>"
+        "$<$<CONFIG:Release>:sfml-window-s.lib>"
+        "$<$<CONFIG:Release>:sfml-graphics-s.lib>"
+       "$<$<STREQUAL:${CMAKE_CXX_COMPILER_ARCHITECTURE_ID},X86>:enet.lib>"
+        "$<$<STREQUAL:${CMAKE_CXX_COMPILER_ARCHITECTURE_ID},x64>:enet64.lib>"
+    )
+endif()
 
-target_link_libraries(RogueAssistantCpp
-    PRIVATE
-    OpenGL::GL
-    glfw
-    Freetype::Freetype
 
-    -Wl,--whole-archive
-    ${CMAKE_BINARY_DIR}/_deps/sfml-build/lib/libsfml-graphics.a
-    ${CMAKE_BINARY_DIR}/_deps/sfml-build/lib/libsfml-window.a
-    ${CMAKE_BINARY_DIR}/_deps/sfml-build/lib/libsfml-system.a
-    ${CMAKE_BINARY_DIR}/_deps/sfml-build/lib/libsfml-network.a
-    -Wl,--no-whole-archive
+if(LINUX)
+    target_link_libraries(RogueAssistantCpp
+            PRIVATE
+            OpenGL::GL
+            glfw
+            Freetype::Freetype
 
-    ${LUA_LIBRARIES}
-    ${ENET_LIBRARIES}
+            sfml-graphics
+            sfml-window
+            sfml-system
+            sfml-network
 
-    mbedtls
-    mbedx509
-    mbedcrypto
-    udev
-    ssh2
-    Xrandr
-    Xcursor
-)
+            ${LUA_LIBRARIES}
+            ${ENET_LIBRARIES}
 
+            mbedtls
+            mbedx509
+            mbedcrypto
+            udev
+            ssh2
+            Xrandr
+            Xcursor
+    )
+endif()
 
 target_compile_options(RogueAssistantCpp
     PRIVATE
